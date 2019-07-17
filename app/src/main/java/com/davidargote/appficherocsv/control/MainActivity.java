@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
         listar();
     }
+
+    /*Metodo para listar la informción de la base de datos en un Listview*/
 
     private void listar() {
 
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
     }
+
+    /*Metodo donde se referencian los controles*/
 
     private void referenciar() {
 
@@ -80,19 +83,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*Metodo para obtener, recorrer y guardar la información del csv en SQLite*/
+
     private void importFile() {
 
         ManagerHelper managerHelper = new ManagerHelper(MainActivity.this);
 
-        File exportDir = new File(Environment.getExternalStorageDirectory(), "/Download");
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "/Download"); // Ruta del archivo csv
 
-        file = new File(exportDir, "datos.csv");
+        file = new File(exportDir, "datos.csv"); // File del archivo encontrado
 
         try {
 
-            CSVReader reader = new CSVReader(new FileReader(file));
-            List<String[]> list = new ArrayList<>();
-            String[] nextLine;
+            CSVReader reader = new CSVReader(new FileReader(file)); // Lee el archivo
+
+            List<String[]> list = new ArrayList<>(); // Instancia de Lista para guardar temporalmente la información
+
+            String[] nextLine;  // Array de String para almacenar cada linea
+
+            // Este while recorre el archivo y añade cada fila a la lista
 
             while ((nextLine = reader.readNext()) != null){
 
@@ -100,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            // Este metodo recorre la lista y guarda cada dato en la BD
             for (int i=0; i < list.size(); i++) {
 
                 Datos datos = new Datos();
